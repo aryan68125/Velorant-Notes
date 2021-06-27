@@ -1,5 +1,6 @@
 package com.aditya.velorannotes;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -119,4 +123,27 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }// DisplayData function closed
+
+    // Menu icons are inflated just as they were with actionbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_activity_menu, menu);
+        return true;
+    }
+
+    //it will handle the back button in the tool bar
+    // this event will enable the back activity action bar back button
+    // function to the button on press activity action bar back button
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.Dev_info)
+        {
+            Intent intent = new Intent(MainActivity.this,DevActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

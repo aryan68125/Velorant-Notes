@@ -9,10 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VeloranNotes">
-        <activity android:name=".Splash_Screen_Activity"
+        <activity android:name=".DevActivity"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait">
-
+            android:screenOrientation="portrait"
+            android:label="Developer Info"/>
+        <activity
+            android:name=".Splash_Screen_Activity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,8 +54,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
