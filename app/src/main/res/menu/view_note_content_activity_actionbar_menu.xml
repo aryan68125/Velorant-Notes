@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/SpeakNote"
+        android:title="Speak Note"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/speech"
+        />
+
+    <item
+        android:id="@+id/DeleteNote"
+        android:title="Delete Note"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/delete_note"
+        />
+</menu>
