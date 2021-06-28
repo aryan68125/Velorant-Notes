@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -17,10 +18,22 @@ public class Splash_Screen_Activity extends AppCompatActivity {
 
     ProgressBar SplashprogressBar;
 
+    ImageView progress_scifi_bar_image_1;
+    ImageView progress_scifi_bar_image_2;
+    ImageView progress_scifi_bar_image_3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash__screen_);
+        progress_scifi_bar_image_1 = findViewById(R.id.progress_scifi_bar_image_1);
+        progress_scifi_bar_image_1.animate().rotation(1000).setDuration(5000);
+
+        progress_scifi_bar_image_2 = findViewById(R.id.progress_scifi_bar_image_2);
+        progress_scifi_bar_image_2.animate().rotation(-1000).setDuration(5000);
+
+        progress_scifi_bar_image_3 = findViewById(R.id.progress_scifi_bar_image_3);
+        progress_scifi_bar_image_3.animate().rotation(-360).setDuration(5000);
 
         SplashprogressBar = findViewById(R.id.SplashprogressBar);
         // SplashprogressBar.setVisibility(View.INVISIBLE);
@@ -33,7 +46,7 @@ public class Splash_Screen_Activity extends AppCompatActivity {
 
         //animating our progress bar
         ObjectAnimator progressAnimator = ObjectAnimator.ofInt(SplashprogressBar, "progress", 0, 100);
-        progressAnimator.setDuration(2000);
+        progressAnimator.setDuration(5000);
         progressAnimator.setInterpolator(new LinearInterpolator());
         progressAnimator.start();
 
@@ -55,7 +68,7 @@ public class Splash_Screen_Activity extends AppCompatActivity {
                 //adding animation when opening new activity
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
-        },2000);
+        },5000);
 
     }
 }
