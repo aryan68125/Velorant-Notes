@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash_screen"
+    android:background="#000000"
     tools:context=".Splash_Screen_Activity">
+
 
     <ProgressBar
         android:id="@+id/SplashprogressBar"
@@ -19,36 +20,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/progress_scifi_bar_image_1"
-        android:layout_width="115dp"
-        android:layout_height="115dp"
-        android:layout_marginBottom="40dp"
-        android:alpha="0.3"
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/loading_animation"
         app:layout_constraintBottom_toTopOf="@+id/SplashprogressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/progress_bar_sci_fi_iii" />
-
-    <ImageView
-        android:id="@+id/progress_scifi_bar_image_2"
-        android:layout_width="139dp"
-        android:layout_height="139dp"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/SplashprogressBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/progress_bar_sci_fi_v" />
-
-    <ImageView
-        android:id="@+id/progress_scifi_bar_image_3"
-        android:layout_width="139dp"
-        android:layout_height="139dp"
-        android:layout_marginBottom="27dp"
-        android:alpha="0.4"
-        app:layout_constraintBottom_toTopOf="@+id/SplashprogressBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/progress_bar_sci_fi_iv" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
