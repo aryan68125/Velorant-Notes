@@ -2,14 +2,18 @@ package com.aditya.velorannotes;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -83,6 +87,11 @@ public class MainActivity extends AppCompatActivity {
         customAdapter = new CustomAdapter(MainActivity.this,this,folder_id,folder_title,folder_contents);
         recylerView.setAdapter(customAdapter);
         recylerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+        //........Item swipe implementation on a recylerView items..........//
+        //attach SimpleCallback To our recyclerView
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simplecallback);
+        itemTouchHelper.attachToRecyclerView(recylerView);
     }
 
     //refreshing the recylerView in our main activity with new data when mainActivity restarts
@@ -144,6 +153,94 @@ public class MainActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //........Item swipe implementation on a recylerView items..........//
+    //these variables will hold the data incase if user press undo button
+    String deleted_folder_id=null;
+    String Deleted_folder_title=null;
+    //flag for refreshing the recylerView when user plress no in delete dialog box
+    int flag = 0; //0 for no is not pressed //1 = no button is pressed in dialogue box
+
+    //for swiping operation always put drag Dirs - 0
+    //Enable left swipe to edit
+    //Enable right swipe to Delete
+    ItemTouchHelper.SimpleCallback simplecallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT)
+    {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            //this method is only needed when you want to rearrange the rows inside the recyclerView
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+            //getting the position of the row of the recyclerView
+            int position = viewHolder.getAdapterPosition();
+
+            //this method is used for handeling the swipe
+            switch(direction)
+            {
+                case ItemTouchHelper.RIGHT:
+                    //add delete note logic
+                    //open a delete dialog box
+                    //add material library in gradel file so that we can use Snackbar inorder to give the user undo button option
+                    //implementation 'com.google.android.material:material:<version>'
+
+                    //save the data inside the backup variable before the delete function takes place
+                    //getting data from ArrayList
+                    deleted_folder_id = folder_id.get(position);
+                    Deleted_folder_title = folder_title.get(position);
+
+                    //now call te delete function from notesDatabaseHelper class
+                    deleteConfirmDialogBox();
+
+                    //now perform delete operation from the database
+                    folder_id.remove(position);
+                    folder_title.remove(position);
+                    folder_contents.remove(position);
+
+                    customAdapter.notifyItemRemoved(position);
+                    //send notification to the user
+
+                    Log.i("swipe","Right swipe done");
+                    break;
+            }
+
+        }
+    };
+
+    //this functioon will create a delete confirm dialog box
+    void deleteConfirmDialogBox()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(R.drawable.danger);
+        builder.setTitle("Delete "+ Deleted_folder_title + " ?");
+        builder.setMessage("Are you sure you want to delete "+ Deleted_folder_title+ " folder and containing notes ?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //here we want to delete the all the notes containing the deleted folder folder_id from notes.db
+                MyNotesDatabaseHelper myNotesdb = new MyNotesDatabaseHelper(MainActivity.this);
+                myNotesdb.deleteAllNotesContainingTheIdOfTheFolderTobeDeleted(deleted_folder_id);
+
+                //the code below will delete the folder from folder.db
+                //create MyDatabaseHelper Class object so that we can use the function deleteOneRowFromTheTableOfDatabase(String row_id)
+                //from MyDatabaseHelper class
+                MyDatabaseHelper mydb = new MyDatabaseHelper(MainActivity.this);
+                mydb.deleteOneFolderRowFromTheTableOfDatabase(deleted_folder_id);
+
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //do nothing if no is pressed by the user in the delete dialogue box
+                recreate();
+            }
+        });
+        builder.create().show();
     }
 
 }
