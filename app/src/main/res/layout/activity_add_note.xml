@@ -12,13 +12,13 @@
         android:id="@+id/save_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:background="@drawable/background_transparent_black_tint"
         android:padding="10dp"
         android:text="save note"
         android:textColor="#FCFCFB"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/note_content_input" />
 
@@ -26,15 +26,15 @@
         android:id="@+id/note_content_input"
         android:layout_width="0dp"
         android:layout_height="580dp"
-        android:layout_marginTop="10dp"
         android:background="@drawable/background_transparent_black_tint"
         android:gravity="top"
         android:hint="Content of your note"
         android:textColor="#FCFCFC"
         android:textColorHint="#FFFFFF"
         android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/save_note"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Note_title_input" />
 
@@ -43,7 +43,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/background_transparent_black_tint"
         android:ems="10"
@@ -52,7 +51,9 @@
         android:textColor="#FFFFFF"
         android:textColorHighlight="#FFFFFF"
         android:textColorHint="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/note_content_input"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
