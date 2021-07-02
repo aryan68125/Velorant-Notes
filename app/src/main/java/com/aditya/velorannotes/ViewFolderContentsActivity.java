@@ -222,8 +222,9 @@ public class ViewFolderContentsActivity extends AppCompatActivity {
     String deleted_note_title=null;
     String Deleted_note_content=null;
     String Note_id_String = null;
+    String Deleted_folder_id = null;
     //flag for refreshing the recylerView when user plress no in delete dialog box
-    int flag = 0; //0 for no is not pressed //1 = no button is pressed in dialogue box
+    int position; //0 for no is not pressed //1 = no button is pressed in dialogue box
 
     //for swiping operation always put drag Dirs - 0
     //Enable left swipe to edit
@@ -240,7 +241,7 @@ public class ViewFolderContentsActivity extends AppCompatActivity {
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
             //getting the position of the row of the recyclerView
-            int position = viewHolder.getAdapterPosition();
+            position = viewHolder.getAdapterPosition();
 
             //this method is used for handeling the swipe
             switch(direction)
@@ -256,6 +257,7 @@ public class ViewFolderContentsActivity extends AppCompatActivity {
                     deleted_note_title = note_title.get(position);
                     Deleted_note_content = note_content.get(position);
                     Note_id_String = note_id.get(position);
+                    Deleted_folder_id = folder_id.get(position);
 
                     //now call te delete function from notesDatabaseHelper class
                     deleteConfirmDialogBox();
@@ -280,7 +282,6 @@ public class ViewFolderContentsActivity extends AppCompatActivity {
     //this function willdelete the note from the database
     void deleteConfirmDialogBox()
     {
-        flag = 0;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setIcon(R.drawable.danger);
         builder.setTitle("Delete "+ deleted_note_title + " ?");
@@ -298,7 +299,13 @@ public class ViewFolderContentsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //do nothing if no is pressed by the user in the delete dialogue box
-                recreate();
+                //recreate(); isnsted of this use the code below to make the user experience a whole lot better
+                note_id.add(position,Note_id_String);
+                note_title.add(position,deleted_note_title);
+                note_content.add(position,Deleted_note_content);
+                folder_id.add(position,Deleted_folder_id);
+                NotesCustomAdapter.notifyItemInserted(position);
+                recylerView_view_folder_content_activity.scrollToPosition(position);
             }
         });
         builder.create().show();

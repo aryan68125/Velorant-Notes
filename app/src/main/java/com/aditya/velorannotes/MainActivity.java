@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
     //these variables will hold the data incase if user press undo button
     String deleted_folder_id=null;
     String Deleted_folder_title=null;
+    int position;
     //flag for refreshing the recylerView when user plress no in delete dialog box
     int flag = 0; //0 for no is not pressed //1 = no button is pressed in dialogue box
 
@@ -177,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
             //getting the position of the row of the recyclerView
-            int position = viewHolder.getAdapterPosition();
+            position = viewHolder.getAdapterPosition();
 
             //this method is used for handeling the swipe
             switch(direction)
@@ -237,7 +238,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //do nothing if no is pressed by the user in the delete dialogue box
-                recreate();
+                //recreate(); isnsted of this use the code below to make the user experience a whole lot better
+                folder_id.add(position,deleted_folder_id);
+                folder_title.add(position,Deleted_folder_title);
+                customAdapter.notifyItemInserted(position);
+                recylerView.scrollToPosition(position);
             }
         });
         builder.create().show();
