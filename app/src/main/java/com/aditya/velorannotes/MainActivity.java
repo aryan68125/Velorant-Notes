@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //do nothing if no is pressed by the user in the delete dialogue box
-                //recreate(); isnsted of this use the code below to make the user experience a whole lot better
+                //recreate(); instead of recreate() use the code below to make the user experience a whole lot better
                 folder_id.add(position,deleted_folder_id);
                 folder_title.add(position,Deleted_folder_title);
                 customAdapter.notifyItemInserted(position);
