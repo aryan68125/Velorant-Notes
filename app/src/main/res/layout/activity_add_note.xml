@@ -8,33 +8,18 @@
     android:padding="10dp"
     tools:context=".AddNoteActivity">
 
-    <Button
-        android:id="@+id/save_note"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background_transparent_black_tint"
-        android:padding="10dp"
-        android:text="save note"
-        android:textColor="#FCFCFB"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/note_content_input" />
-
     <EditText
         android:id="@+id/note_content_input"
-        android:layout_width="0dp"
-        android:layout_height="580dp"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
         android:background="@drawable/background_transparent_black_tint"
         android:gravity="top"
         android:hint="Content of your note"
         android:textColor="#FCFCFC"
         android:textColorHint="#FFFFFF"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/save_note"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Note_title_input" />
 
@@ -55,6 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
