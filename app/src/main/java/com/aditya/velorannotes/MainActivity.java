@@ -200,7 +200,6 @@ public class MainActivity extends AppCompatActivity {
                     //now perform delete operation from the database
                     folder_id.remove(position);
                     folder_title.remove(position);
-                    folder_contents.remove(position);
 
                     customAdapter.notifyItemRemoved(position);
                     //send notification to the user

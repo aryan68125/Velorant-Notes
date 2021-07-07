@@ -59,7 +59,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         //here we are going to set Text into these textView's
         holder.folder_id_row.setText(String.valueOf(folder_id_CustomAdapter.get(position)));
         holder.folder_title_row_card_view_layout.setText(String.valueOf(folder_title_CustomAdapter.get(position)));
-        holder.folder_detail_row_card_view_layout.setText(String.valueOf(folder_detail_CustomAdapter.get(position)));
 
         //setting up the onclick Listener for our mainlayout
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
