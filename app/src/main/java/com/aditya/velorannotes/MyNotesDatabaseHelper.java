@@ -55,8 +55,7 @@ public class MyNotesDatabaseHelper extends SQLiteOpenHelper
     }
 
     //this method will implement add Folder functionality to our application
-    void addNote(Integer folder_id_String,String Note_name,String Note_content)
-    {
+    void addNote(Integer folder_id_String,String Note_name,String Note_content) {
         //create a sql Lite database object
         //this will refer to our SQLiteOpenHelper class
         //getWritableDatabase() will help us to write to our table
@@ -64,21 +63,25 @@ public class MyNotesDatabaseHelper extends SQLiteOpenHelper
         //ContentValues cv will store all our data from our application and will pass this to our database table
         ContentValues cv = new ContentValues();
         //cv.put(key:"column name",value:"Data")
-        cv.put(COLUMN_FOLDER_ID,folder_id_String);
-        cv.put(COLUMN_NOTE_TITLE,Note_name);
-        //the folder detail will contain the notes_id which will come from another database
-        cv.put(COLUMN_NOTE_CONTENT,Note_content);
+        if (Note_name.isEmpty() || Note_content.isEmpty()) {
+            Toast.makeText(context, "Input fields can't be empty", Toast.LENGTH_LONG).show();
+        } else {
+            cv.put(COLUMN_FOLDER_ID, folder_id_String);
+            cv.put(COLUMN_NOTE_TITLE, Note_name);
+            //the folder detail will contain the notes_id which will come from another database
+            cv.put(COLUMN_NOTE_CONTENT, Note_content);
 
-        //now we will insert the data inside our database using our SQLite object db
-        long result = db.insert(TABLE_NAME,null,cv);
+            //now we will insert the data inside our database using our SQLite object db
+            long result = db.insert(TABLE_NAME, null, cv);
 
-        if(result == -1) //our application failed to insert the data
-        {
-            Toast.makeText(context,"Err Bad Protocol A113 0007287197x6211963H!",Toast.LENGTH_SHORT).show();
-        }
-        else //our application sucessfully inserted the data from our app to our database
-        {
-            Toast.makeText(context,"Added Successfully!",Toast.LENGTH_SHORT).show();
+            if (result == -1) //our application failed to insert the data
+            {
+                Toast.makeText(context, "Err Bad Protocol A113 0007287197x6211963H!", Toast.LENGTH_SHORT).show();
+            } else //our application sucessfully inserted the data from our app to our database
+            {
+                Toast.makeText(context, "Added Successfully!", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 /*
@@ -124,18 +127,21 @@ the selected row from the table of the database
     {     //for writing to our database
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(COLUMN_NOTE_TITLE,Note_Title_temp_editText);
-        cv.put(COLUMN_NOTE_CONTENT,Note_content_temp_editText);
-
-        long result = db.update(TABLE_NAME,cv,"notes_id=?",new String[]{Note_id_String});
-
-        if(result==-1)
+        if(Note_Title_temp_editText.isEmpty() || Note_content_temp_editText.isEmpty())
         {
-            Toast.makeText(context,"Update Failed! Err A007 27183xD997",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Input fields can't be empty", Toast.LENGTH_LONG).show();
         }
-        else
-        {
-            Toast.makeText(context,"Update Success!",Toast.LENGTH_SHORT).show();
+        else {
+            cv.put(COLUMN_NOTE_TITLE, Note_Title_temp_editText);
+            cv.put(COLUMN_NOTE_CONTENT, Note_content_temp_editText);
+
+            long result = db.update(TABLE_NAME, cv, "notes_id=?", new String[]{Note_id_String});
+
+            if (result == -1) {
+                Toast.makeText(context, "Update Failed! Err A007 27183xD997", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Update Success!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
