@@ -37,5 +37,12 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.20'
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
-    implementation 'com.google.android.material:material:<version>'
+    //Scalable size unit (Support for different size and resolution of android devices screens)
+    implementation "com.intuit.sdp:sdp-android:1.0.6"
+    implementation "com.intuit.ssp:ssp-android:1.0.6"
+    //material design
+    implementation "com.google.android.material:material:1.1.0"
+
+    //rounded imageview
+    implementation "com.makeramen:roundedimageview:2.3.0"
 }
