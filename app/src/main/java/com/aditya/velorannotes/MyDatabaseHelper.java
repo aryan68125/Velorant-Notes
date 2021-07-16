@@ -65,18 +65,23 @@ public class MyDatabaseHelper extends SQLiteOpenHelper
         //ContentValues cv will store all our data from our application and will pass this to our database table
         ContentValues cv = new ContentValues();
         //cv.put(key:"column name",value:"Data")
-        cv.put(COLUMN_FOLDER_TITLE,folder_title);
-
-        //now we will insert the data inside our database using our SQLite object db
-        long result = db.insert(TABLE_NAME,null,cv);
-
-        if(result == -1) //our application failed to insert the data
+        if(folder_title.isEmpty())
         {
-            Toast.makeText(context,"Err Bad Protocol A113 0007287197x6211963H!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"Folder name can't be empty",Toast.LENGTH_LONG).show();
         }
-        else //our application sucessfully inserted the data from our app to our database
-        {
-            Toast.makeText(context,"Added Successfully!",Toast.LENGTH_SHORT).show();
+        else {
+            cv.put(COLUMN_FOLDER_TITLE, folder_title);
+
+            //now we will insert the data inside our database using our SQLite object db
+            long result = db.insert(TABLE_NAME, null, cv);
+
+            if (result == -1) //our application failed to insert the data
+            {
+                Toast.makeText(context, "Err Bad Protocol A113 0007287197x6211963H!", Toast.LENGTH_SHORT).show();
+            } else //our application sucessfully inserted the data from our app to our database
+            {
+                Toast.makeText(context, "Added Successfully!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -102,17 +107,19 @@ public class MyDatabaseHelper extends SQLiteOpenHelper
     {     //for writing to our database
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(COLUMN_FOLDER_TITLE,folder_name_String);
 
-        long result = db.update(TABLE_NAME,cv,"_id=?",new String[]{folder_id_String});
-
-        if(result==-1)
+        if(folder_name_String.isEmpty())
         {
-            Toast.makeText(context,"Update Failed! Err A007 27183xD997",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"Folder name can't be empty",Toast.LENGTH_LONG).show();
         }
-        else
-        {
-            Toast.makeText(context,"Update Success!",Toast.LENGTH_SHORT).show();
+        else {
+            cv.put(COLUMN_FOLDER_TITLE, folder_name_String);
+            long result = db.update(TABLE_NAME, cv, "_id=?", new String[]{folder_id_String});
+            if (result == -1) {
+                Toast.makeText(context, "Update Failed! Err A007 27183xD997", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Update Success!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
