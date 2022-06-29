@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    //it will handle the back button in the tool bar
+    ///it will handle the back button in the tool bar
     // this event will enable the back activity action bar back button
     // function to the button on press activity action bar back button
     @Override
